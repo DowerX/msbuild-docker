@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# abort the script if there is an error
+set -eo pipefail
+
+vs_cmd "msbuild $*"
