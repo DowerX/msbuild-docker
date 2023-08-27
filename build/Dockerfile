@@ -25,9 +25,11 @@ RUN \
     wineserver --kill; exit 0
 
 COPY bin /usr/bin
+
 COPY share/msbuild /opt/msbuild
 RUN sed -i 's/\"!result:~0,3!\"==\"10.\"/\"1\"==\"1\"/g' /opt/msbuild/vs_buildtools/Common7/Tools/vsdevcmd/core/winsdk.bat
-# COPY [ "share/inno5", "/root/.wine/drive_c/Program Files (x86)/Inno Setup 5" ]
+
+COPY [ "share/inno5", "/root/.wine/drive_c/Program Files (x86)/Inno Setup 5" ]
 
 WORKDIR /src
 ENTRYPOINT ["vs_cmd"]
