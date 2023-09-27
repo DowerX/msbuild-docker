@@ -1,14 +1,31 @@
 version: "3.2"
 services:
-  windows:
+  install-msbuild:
     image: dowerx/windows-qemu
     ports:
       - 5900:5900
+      - 5801:5801
     devices:
       - /dev/kvm:/dev/kvm
     volumes:
-      - /var/lib/libvirt/images/win10-basic.qcow2:/base.qcow2:ro
+      - image:/image:ro
       - ./build/share:/share
+    env_file:
+      - .env.windows
+  install-windows:
+    image: dowerx/windows-qemu
+    entrypoint: /install.sh
+    ports:
+      - 5900:5900
+      - 5801:5801
+    devices:
+      - /dev/kvm:/dev/kvm
+    volumes:
+      - image:/image:rw
+      - /home/${USER}/Downloads/Win10_22H2_English_x64v1.iso:/setup.iso:ro
+      - ./build/share:/share
+      - ./setup:/setup
+    privileged: true
     env_file:
       - .env.windows
   msbuild:
@@ -16,3 +33,6 @@ services:
     build: ./build
     volumes:
       - ./src:/src
+
+volumes:
+  image:

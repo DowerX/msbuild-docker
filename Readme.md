@@ -5,7 +5,7 @@ A docker-compose project for building Visual Studio projects under Linux. \
 It installs the required dependecies in a Windows VM and then builds an image with wine and the tools required for building.
 
 ## Requirements
-- a preinstalled Windows VM disk image with some basic post install setup. (See: [dowerx/windows-qemu-docker](https://git.euronetrt.hu/dowerx/windows-qemu-docker))
+- a preinstalled Windows VM disk image with some basic post install setup. (See: [dowerx/windows-qemu-docker](https://github.com/dowerx/windows-qemu-docker))
 - the dependencies' setup files. (By default it installs [vs_BuildTools](https://aka.ms/vs/17/release/vs_BuildTools.exe), [Windows SDK](https://go.microsoft.com/fwlink/?linkid=2164145) and [Inno Setup 5.6.1](https://files.jrsoftware.org/is/5/innosetup-5.6.1.exe))
 - amd64 CPU with enough cores to handle a VM
 - enough RAM to handle a VM
@@ -20,7 +20,7 @@ It installs the required dependecies in a Windows VM and then builds an image wi
 2. setup your preferred connfiguration for the VM in *.env.windows*
 3. copy your setup files to *build/share*
 4. edit *build/share/install-buildtools.ps1* as required
-5. run ```docker compose up windows``` to install the buildtools, you can monitor it via VNC on port 5900
+5. run ```docker compose up install-msbuild``` to install the buildtools, you can monitor it via VNC on port 5900
 6. run ```docker compose build msbuild``` to create the final docker image, you can remove the buildtools from *build/share/msbuild* and *build/share/inno5* afterwards to save space
 7. copy your project to the *src* directory
 8. run ```docker compose run -it msbuild``` to open a Visual Studio Dev CMD prompt
